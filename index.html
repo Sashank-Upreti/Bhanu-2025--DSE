@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title id="pageTitle">आमा-बुबा सहयोगी | Aama-Buba Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .large-input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+        .cta-button {
+            padding: 10px;
+            width: 100%;
+            background: #0073ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .lang-toggle {
+            background: none;
+            border: 1px solid #000;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1 id="appHeader">आमा-बुबा सहयोगी</h1>
+
+            <button id="langToggle" 
+                    class="lang-toggle" 
+                    onclick="toggleLanguage()"
+                    aria-label="Toggle Language">
+                नेपाली | EN
+            </button>
+        </div>
+    </header>
+
+    <main class="login-container">
+        <h2 id="loginTitle">लग - इन</h2>
+
+        <form id="loginForm" autocomplete="on">
+            <label for="phone" id="phoneLabel">फोन नम्बर:</label>
+            <input type="tel" id="phone" name="phone" required 
+                class="large-input" placeholder="९८xxxxxxxx">
+
+            <label for="password" id="passwordLabel">पासवर्ड:</label>
+            <input type="password" id="password" name="password" required 
+                class="large-input" placeholder="********">
+
+            <button type="submit" id="loginButton" class="cta-button">
+                लग - इन गर्नुहोस्
+            </button>
+
+            <p id="roleNote" class="role-note">
+                Role determines the dashboard view (Requestor, Elder, Volunteer).
+            </p>
+        </form>
+    </main>
+
+    <!-- LANGUAGE SCRIPT HERE -->
+    <script href="script.js">
+        let isNepali = true;
+
+        function toggleLanguage() {
+            isNepali = !isNepali;
+
+            if (isNepali) {
+                document.getElementById("pageTitle").innerText = "आमा-बुबा सहयोगी | Aama-Buba Helper";
+                document.getElementById("appHeader").innerText = "आमा-बुबा सहयोगी";
+                document.getElementById("langToggle").innerText = "नेपाली | EN";
+
+                document.getElementById("loginTitle").innerText = "लग - इन";
+                document.getElementById("phoneLabel").innerText = "फोन नम्बर:";
+                document.getElementById("passwordLabel").innerText = "पासवर्ड:";
+                document.getElementById("loginButton").innerText = "लग - इन गर्नुहोस्";
+                document.getElementById("roleNote").innerText =
+                    "Role determines the dashboard view (Requestor, Elder, Volunteer).";
+            } 
+            else {
+                document.getElementById("pageTitle").innerText = "Aama-Buba Helper";
+                document.getElementById("appHeader").innerText = "Aama-Buba Helper";
+                document.getElementById("langToggle").innerText = "EN | नेपाली";
+
+                document.getElementById("loginTitle").innerText = "Login";
+                document.getElementById("phoneLabel").innerText = "Phone Number:";
+                document.getElementById("passwordLabel").innerText = "Password:";
+                document.getElementById("loginButton").innerText = "Login";
+                document.getElementById("roleNote").innerText =
+                    "Role determines the dashboard view (Requestor, Elder, Volunteer).";
+            }
+        }
+    </script>
+</body>
+</html>
