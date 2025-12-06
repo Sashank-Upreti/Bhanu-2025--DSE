@@ -1,182 +1,244 @@
-/* ------------------------------------------------------
-   GLOBAL VARIABLES & BASE STYLES
------------------------------------------------------- */
+/* --- Global Reset & Accessibility --- */
 :root {
-    --color-primary: #004d40;            /* Dark Teal */
-    --color-background: #f7f7f7;
-    --color-text-dark: #212121;
-    --color-success: #43a047;
-    --color-danger: #d32f2f;
-    --color-info-dark: #1a237e;
-
+    --color-primary: #5c8d89; /* Calm Teal/Green */
+    --color-secondary: #c2e2d6; /* Soft Pastel Green */
+    --color-background: #f8f8f8; /* Off-White/Light Gray */
+    --color-text: #333333; /* Dark Gray for contrast */
+    --color-accent: #ffb380; /* Soft Peach for alerts/highlights */
     --font-size-base: 18px;
-    --font-size-large: 28px;
+    --font-size-large: 24px;
+    --spacing-unit: 1.5rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-family: 'Arial', sans-serif;
+    font-size: var(--font-size-base);
+    color: var(--color-text);
     background-color: var(--color-background);
-    color: var(--color-text-dark);
     line-height: 1.6;
+    padding-top: 60px; /* Space for fixed header */
 }
 
+/* --- Layout & Structure --- */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-unit);
+}
 
-/* ------------------------------------------------------
-   HEADER
------------------------------------------------------- */
-header {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 15px 20px;
+/* --- Typography (Large & Readable) --- */
+h1, h2, h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-unit);
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+/* --- Navigation (Simple & Clear) --- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-.header-content {
+.nav-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem var(--spacing-unit);
 }
 
-h1 {
-    margin: 0;
-    font-size: 2.2rem;
+.nav-title {
+    font-size: var(--font-size-large);
+    color: var(--color-primary);
+    font-weight: bold;
 }
 
+.nav-links {
+    display: flex;
+    gap: var(--spacing-unit);
+}
 
-/* ------------------------------------------------------
-   LANGUAGE TOGGLE BUTTON
------------------------------------------------------- */
-.lang-toggle {
-    background: none;
-    border: 1px solid white;
-    color: white;
-    padding: 8px 12px;
-    cursor: pointer;
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text);
     font-size: var(--font-size-base);
-    border-radius: 5px;
-    transition: opacity 0.25s;
+    padding: 0.5rem;
+    transition: color 0.3s;
 }
 
-.lang-toggle:hover {
-    opacity: 0.85;
+.nav-link:hover {
+    color: var(--color-primary);
 }
 
-
-/* ------------------------------------------------------
-   FORMS & INPUTS
------------------------------------------------------- */
-.login-container,
-.dashboard-container,
-.form-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
+/* --- Forms & Inputs (Large & Accessible) --- */
+.form-group {
+    margin-bottom: var(--spacing-unit);
 }
 
 label {
     display: block;
-    margin-bottom: 6px;
     font-weight: bold;
-    font-size: var(--font-size-base);
-}
-
-.large-input {
-    width: 100%;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 2px solid var(--color-primary);
-    border-radius: 8px;
+    margin-bottom: 0.5rem;
     font-size: var(--font-size-large);
-    box-sizing: border-box;
+    color: var(--color-text);
 }
 
-.cta-button {
+input[type="text"],
+input[type="password"],
+textarea,
+select {
     width: 100%;
-    padding: 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: white;
-    background-color: var(--color-primary);
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #00796b;
-}
-
-
-
-.elder-view {
-    display: flex;
-    flex-direction: column;
-    height: 90vh;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 20px;
-}
-
-.elder-button {
-    width: 90%;
-    height: 40%;
-    border: none;
-    border-radius: 15px;
-    color: white;
-    font-size: 3rem;
-    font-weight: 900;
-    text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
-}
-
-.elder-button i {
-    font-size: 5rem;
-    margin-bottom: 15px;
-}
-
-#callVolunteer {
-    background-color: var(--color-success);
-}
-
-#taskComplete {
-    background-color: var(--color-info-dark);
-}
-
-
-
-.category-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.category-button {
-    padding: 15px;
+    padding: 1rem;
+    font-size: var(--font-size-large);
+    border: 2px solid var(--color-secondary);
+    border-radius: 12px;
     background-color: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 8px;
-
-    font-size: var(--font-size-base);
-    cursor: pointer;
-
-    transition: background-color 0.2s, 
-                color 0.2s, 
-                border-color 0.2s;
+    transition: border-color 0.3s;
 }
 
-.category-button.selected {
+input:focus, textarea:focus, select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* --- Requestor Specific Enhancements (NEW/UPDATED) --- */
+.form-group select#task-elder {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.volunteer-status {
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    display: inline-block;
+    font-weight: bold;
+    font-size: var(--font-size-base);
+}
+
+.volunteer-status-assigned {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+
+.volunteer-status-pending {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+/* --- Buttons (Big, Rounded, High-Contrast) --- */
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: var(--font-size-large);
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.1s;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-primary {
     background-color: var(--color-primary);
     color: white;
 }
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.btn-action {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    margin-top: 10px;
+}
+
+.btn-success {
+    background-color: #66bb6a;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* --- Cards (Clean Task Display) --- */
+.task-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-unit);
+}
+
+/* Filtering section style */
+.filter-section {
+    background-color: white;
+    padding: var(--spacing-unit);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-unit);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: center;
+}
+
+.filter-section .form-group {
+    margin-bottom: 0;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    padding: var(--spacing-unit);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Status Colors */
+.card-status-new { border-left: 10px solid #ffb380; }
+.card-status-progress { border-left: 10px solid #a3e635; }
+.card-status-completed { border-left: 10px solid #81d4fa; }
+.card-status-verified { border-left: 10px solid var(--color-primary); }
+.card-status-offer { border-left: 10px solid #f9a8d4; } /* Volunteer Offer Color */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-unit);
+}
+
+.profile-item {
+    background-color: white;
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    padding: var(--spacing-unit);
+}
+.profile-item img {
+    max-width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    float: right;
+    margin-left: 1rem;
+}
+
