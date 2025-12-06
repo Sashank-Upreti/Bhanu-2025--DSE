@@ -1,10 +1,10 @@
-/* --- Global Reset & Accessibility --- */
+
 :root {
-    --color-primary: #5c8d89; /* Calm Teal/Green */
-    --color-secondary: #c2e2d6; /* Soft Pastel Green */
-    --color-background: #f8f8f8; /* Off-White/Light Gray */
-    --color-text: #333333; /* Dark Gray for contrast */
-    --color-accent: #ffb380; /* Soft Peach for alerts/highlights */
+    --color-primary: #5c8d89; 
+    --color-secondary: #c2e2d6; 
+    --color-background: #f8f8f8; 
+    --color-text: #333333; 
+    --color-accent: #ffb380; 
     --font-size-base: 18px;
     --font-size-large: 24px;
     --spacing-unit: 1.5rem;
@@ -22,17 +22,16 @@ body {
     color: var(--color-text);
     background-color: var(--color-background);
     line-height: 1.6;
-    padding-top: 60px; /* Space for fixed header */
+    padding-top: 60px; 
 }
 
-/* --- Layout & Structure --- */
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: var(--spacing-unit);
 }
 
-/* --- Typography (Large & Readable) --- */
 h1, h2, h3 {
     color: var(--color-primary);
     margin-bottom: var(--spacing-unit);
@@ -41,7 +40,7 @@ h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
 
-/* --- Navigation (Simple & Clear) --- */
+
 .header {
     position: fixed;
     top: 0;
@@ -51,7 +50,11 @@ h3 { font-size: 1.5rem; }
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
-
+/* .header-action {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+} */
 .nav-bar {
     display: flex;
     justify-content: space-between;
@@ -82,7 +85,7 @@ h3 { font-size: 1.5rem; }
     color: var(--color-primary);
 }
 
-/* --- Forms & Inputs (Large & Accessible) --- */
+
 .form-group {
     margin-bottom: var(--spacing-unit);
 }
@@ -113,7 +116,7 @@ input:focus, textarea:focus, select:focus {
     outline: none;
 }
 
-/* --- Requestor Specific Enhancements (NEW/UPDATED) --- */
+
 .form-group select#task-elder {
     font-weight: 500;
     color: var(--color-primary);
@@ -138,7 +141,7 @@ input:focus, textarea:focus, select:focus {
     color: var(--color-text);
 }
 
-/* --- Buttons (Big, Rounded, High-Contrast) --- */
+
 .btn {
     padding: 1rem 2rem;
     border: none;
@@ -178,14 +181,14 @@ input:focus, textarea:focus, select:focus {
     opacity: 0.9;
 }
 
-/* --- Cards (Clean Task Display) --- */
+
 .task-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-unit);
 }
 
-/* Filtering section style */
+
 .filter-section {
     background-color: white;
     padding: var(--spacing-unit);
@@ -219,7 +222,7 @@ input:focus, textarea:focus, select:focus {
 .card-status-progress { border-left: 10px solid #a3e635; }
 .card-status-completed { border-left: 10px solid #81d4fa; }
 .card-status-verified { border-left: 10px solid var(--color-primary); }
-.card-status-offer { border-left: 10px solid #f9a8d4; } /* Volunteer Offer Color */
+.card-status-offer { border-left: 10px solid #f9a8d4; }
 
 .profile-grid {
     display: grid;
@@ -240,5 +243,11 @@ input:focus, textarea:focus, select:focus {
     border-radius: 50%;
     float: right;
     margin-left: 1rem;
+}
+
+@keyframes newTaskPulse {
+  0% { box-shadow: 0 0 0 0 #b6f7c2; }
+  70% { box-shadow: 0 0 25px 4px #66bb6a; }
+  100% { box-shadow: 0 0 0 0 #b6f7c2; }
 }
 

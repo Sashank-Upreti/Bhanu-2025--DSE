@@ -112,6 +112,9 @@ let currentFilters = {
     keyword: ''
 };
 
+// --- GLOBAL VARIABLE TO TRACK LAST ADDED TASK (FOR HIGHLIGHTING) ---
+let lastAddedTaskId = null;
+
 
 // --- 2. TRANSLATION LOGIC (JS) ---
 
@@ -300,6 +303,7 @@ function filterTasks(taskList, filters) {
 function renderRequestorDashboard() {
     let userTasks = tasks.filter(t => t.requestor_id === activeUser.id);
     userTasks = filterTasks(userTasks, currentFilters); // Apply filters
+    let foundNew = false;
 
     // Get offers in the Requestor's ward
     let localOffers = volunteerOffers.filter(o => o.ward_number === activeUser.ward_number);
@@ -319,9 +323,14 @@ function renderRequestorDashboard() {
         } else if (task.status === 'New') {
              actionButton = `<button class="btn btn-secondary btn-action" onclick="alert('TODO: Implement Edit/Cancel Task functionality')">Edit / Cancel</button>`;
         }
-
+        // HIGHLIGHT the card if it's just been added
+        let highlight = '';
+        if (task.id === lastAddedTaskId && !foundNew) {
+            highlight = 'style="box-shadow: 0 0 25px 4px #66bb6a; border: 3px solid #66bb6a; animation: newTaskPulse 1s ease;"';
+            foundNew = true; // Only highlight the first occurrence in the filter
+        }
         return `
-            <div class="card ${statusClass}">
+            <div class="card ${statusClass}" id="task-card-${task.id}" ${highlight}>
                 <div>
                     <h3 class="card-title">${task.title}</h3>
                     <p class="card-text"><strong>${DICTIONARY['Elder Receiving Help']}:</strong> ${elder ? elder.name : 'Unknown'}</p>
@@ -350,9 +359,13 @@ function renderRequestorDashboard() {
     }).join('');
     
     setView('dashboard', `
-        <h2>${DICTIONARY['Requestor Dashboard']}</h2>
+         <h2>${DICTIONARY['Requestor Dashboard']}</h2>
+         
+        ${lastAddedTaskId ? '<div style="padding:1rem;background:#e3ffea;color:#328c46;margin-bottom:16px;border-radius:8px;font-weight:bold;">Task posted successfully! (Scroll to see highlight)</div>' : ''}
         <div style="text-align: center; margin-bottom: 2rem;">
-            <a href="#" class="btn btn-primary" onclick="renderView('task_request')" style="width: auto;">${DICTIONARY['Post New Help Request']}</a>
+            <a href="#" class="btn btn-primary"
+             onclick="renderView('task_request')"
+              style="width: auto;">POST</a>
         </div>
         ${getFilterUI(true)} 
 
@@ -366,6 +379,13 @@ function renderRequestorDashboard() {
             ${offerHtml || `<p>${DICTIONARY['No proactive offers in your ward right now.'] || 'No proactive offers in your ward right now.'}</p>`}
         </div>
     `);
+    // SCROLL to first highlighted task if present
+    if (lastAddedTaskId) {
+      setTimeout(function(){
+        var el = document.getElementById('task-card-' + lastAddedTaskId);
+        if (el) el.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }, 200);
+    }
 }
 
 function renderVolunteerDashboard() {
@@ -573,8 +593,9 @@ function renderTaskRequestView() {
             elder_profile_id: elderId
         };
         tasks.push(newTask);
-        alert("Task Posted Successfully! Check your Dashboard.");
+        lastAddedTaskId = newTask.id; // HIGHLIGHT THIS TASK on next dashboard render!
         renderDashboardView();
+        setTimeout(() => { lastAddedTaskId = null; }, 3000); // Remove highlight after 3s
     });
 }
 
